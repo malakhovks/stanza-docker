@@ -1,5 +1,5 @@
 # stanza-docker
-**Stanza** library inside docker container demo (Norwegian Bokmaal model inside).
+**Stanza** library inside docker container demo (Norwegian Bokmaal model load inside at first app start).
 
 - clone project;
 - build docker image: `docker build . -t stanza-image`;
