@@ -66,7 +66,7 @@ def get_nlp():
     # {'message': 'Formuesskatten er en skatt som utlignes på grunnlag av nettoformuen din.'}
     logging.debug('Message: ' + req_data['message'])
     sdoc = snlp(req_data['message'])
-    s_arr = [word.lemma for sent in sdoc.sentences for word in sent.words
+    s_arr = [word.lemma for sent in sdoc.sentences for word in sent.words]
     doc = {'doc': req_data['message']}
     doc['lemmas'] = s_arr
     return Response(json.dumps(doc), mimetype='application/json')
