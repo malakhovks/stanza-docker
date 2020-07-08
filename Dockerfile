@@ -20,5 +20,8 @@ RUN apt-get -y clean \
     && apt-get -y autoremove
 
 COPY ./deploy/nginx.conf /etc/nginx
+
+RUN chmod -R a+rwx /stanza/serv
+
 RUN chmod +x ./start.sh
 CMD ["./start.sh"]
