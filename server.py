@@ -23,8 +23,8 @@ from flask_cors import CORS
 
 ALLOWED_EXTENSIONS = set(['txt', 'xlsx'])
 
-__author__ = "Kyrylo Malakhov <malakhovks@nas.gov.ua> and Vitalii Velychko <aduisukr@gmail.com>"
-__copyright__ = "Copyright (C) 2020 Kyrylo Malakhov <malakhovks@nas.gov.ua> and Vitalii Velychko <aduisukr@gmail.com>"
+__author__ = "Kyrylo Malakhov <malakhovks@nas.gov.ua>"
+__copyright__ = "Copyright (C) 2020 Kyrylo Malakhov <malakhovks@nas.gov.ua>"
 
 app = Flask(__name__)
 CORS(app)
@@ -45,9 +45,32 @@ b'_5#y2L"F4Q8z\n\xec]/'
 # app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.secret_key = os.urandom(42)
 
+# Init Stanza (load models too)
+import stanza
+
+try:
+    snlp = stanza.Pipeline(lang="nb", processors='tokenize,mwt,pos,lemma', dir='./deploy/stanza_resources')
+except:
+    logging.debug('Installing Stance pretrained NLP model for Norwegian Bokmaal.')
+    stanza.download('nb', dir='./deploy/stanza_resources')
+    logging.debug('Stance pretrained NLP model for Norwegian Bokmaal is ready to use.')
+    snlp = stanza.Pipeline(lang="nb", processors='tokenize,mwt,pos,lemma', dir='./deploy/stanza_resources')
+
 @app.route('/')
 def index():
-    return 'Hello, CONFOR!'
+    return 'Hello, Stanza in Docker!'
+
+@app.route('/test/message', methods=['POST'])
+def get_nlp():
+    req_data = request.get_json()
+    # get messge from JSON
+    # Example of POST JSON data
+    # {'message': 'Formuesskatten er en skatt som utlignes på grunnlag av nettoformuen din.'}
+    sdoc = snlp(req_data['message'])
+    s_arr = [word.lemma_ for word in sdoc]
+    doc = {'doc': req_data['message']}
+    doc['lemmas'] = s_arr
+    return Response(json.dumps(doc), mimetype='application/json')
 
 if __name__ == '__main__':
     # default port = 5000
