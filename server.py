@@ -21,8 +21,6 @@ from flask import Flask, jsonify, flash, request, Response, redirect, url_for, a
 # A Flask extension for handling Cross Origin Resource Sharing (CORS), making cross-origin AJAX possible.
 from flask_cors import CORS
 
-ALLOWED_EXTENSIONS = set(['txt', 'xlsx'])
-
 __author__ = "Kyrylo Malakhov <malakhovks@nas.gov.ua>"
 __copyright__ = "Copyright (C) 2020 Kyrylo Malakhov <malakhovks@nas.gov.ua>"
 
