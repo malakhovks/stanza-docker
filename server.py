@@ -66,6 +66,7 @@ def get_nlp():
     # get messge from JSON
     # Example of POST JSON data
     # {'message': 'Formuesskatten er en skatt som utlignes på grunnlag av nettoformuen din.'}
+    logging.debug('Message: ' + req_data['message'])
     sdoc = snlp(req_data['message'])
     s_arr = [word.lemma_ for word in sdoc]
     doc = {'doc': req_data['message']}
