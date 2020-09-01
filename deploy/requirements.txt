@@ -1,6 +1,6 @@
 Flask==1.1.2
 flask-cors==3.0.8
 # The Stanford NLP Group's official Python NLP library. It contains support for running various accurate natural language processing tools on 60+ languages and for accessing the Java Stanford CoreNLP software from Python.
-stanza==1.0.1
+stanza==1.1.1
 # ------------------------------------------------------------------
 uWSGI==2.0.19.1
