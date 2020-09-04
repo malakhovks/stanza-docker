@@ -17,16 +17,18 @@ RUN apt-get -y clean \
     && curl https://getmic.ro | bash \
     # ------------------------------------------------------------------
     && pip install -r ./deploy/requirements.txt --src /usr/local/src \
+    # * Preload NB stanza resources
+    && python -c 'import stanza; stanza.download("nb")' \
     && rm -r /root/.cache \
     && apt-get -y clean \
     && apt-get -y autoremove
 
 # Preload EN stanza resources
-RUN wget https://raw.githubusercontent.com/stanfordnlp/stanza-resources/master/resources_1.1.0.json -P ~/stanza_resources
-RUN wget https://nlp.stanford.edu/software/stanza/1.1.0/nb/default.zip -P ~/stanza_resources/nb
-RUN unzip ~/stanza_resources/nb/default.zip -d ~/stanza_resources/nb
-RUN rm ~/stanza_resources/nb/default.zip
-RUN mv ~/stanza_resources/resources_1.1.0.json ~/stanza_resources/resources.json
+# RUN wget https://raw.githubusercontent.com/stanfordnlp/stanza-resources/master/resources_1.1.0.json -P ~/stanza_resources
+# RUN wget https://nlp.stanford.edu/software/stanza/1.1.0/nb/default.zip -P ~/stanza_resources/nb
+# RUN unzip ~/stanza_resources/nb/default.zip -d ~/stanza_resources/nb
+# RUN rm ~/stanza_resources/nb/default.zip
+# RUN mv ~/stanza_resources/resources_1.1.0.json ~/stanza_resources/resources.json
 
 COPY ./deploy/nginx.conf /etc/nginx
 
