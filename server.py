@@ -56,7 +56,7 @@ import stanza
 #     snlp = stanza.Pipeline(lang="nb", processors='tokenize,mwt,pos,lemma', dir='./deploy/stanza_resources')
 
 try:
-    snlp = stanza.Pipeline(lang="nb", processors='tokenize,mwt,pos,lemma')
+    snlp = stanza.Pipeline('nb')
 except Exception as e:
     logging.error(traceback.format_exc())
 
