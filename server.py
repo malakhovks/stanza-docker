@@ -5,6 +5,7 @@
 import sys, os, tempfile
 # load misc utils
 import json
+import traceback
 # import uuid
 from werkzeug.utils import secure_filename
 import logging
